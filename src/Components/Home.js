@@ -1,11 +1,12 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import MetaData from './Layout/Metadata'
+import MetaData from './Layouts/Metadata'
 import axios from 'axios';
 
 import Product from './Product/Product';
+import Loader from './Layouts/Loader'
 
 const Home = () => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState([])
     const [error, setError] = useState()
     const [productsCount, setProductsCount] = useState(0)
@@ -16,26 +17,33 @@ const Home = () => {
         let res = await axios.get(link)
         console.log(res)
         setProducts(res.data.products)
+        setLoading(false)
     }
 
     useEffect(() => {
         getProducts()
     }, [])
-    console.log(products)
+    // console.log(products)
     return (
         <Fragment>
-            <MetaData title={'Buy Best Products Online'} />
-            <div className="container container-fluid">
-                <h1 id="products_heading">Latest Products</h1>
-                <section id="products" className="container mt-5">
-                    <div className="row">
-                    {products && products.map(product => (
-                        <Product key={product._id} product={product} col={4} />
-                    ))}
+            {loading ? <Loader /> : (
+                <Fragment>
+                    <MetaData title={'Buy Best Products Online'} />
+                    <div className="container container-fluid">
+                        <h1 id="products_heading">Latest Products</h1>
+                        <section id="products" className="container mt-5">
+                            <div className="row">
+                                {products && products.map(product => (
+                                    <Product key={product._id} product={product} col={4} />
+                                ))}
+                            </div>
+                        </section>
                     </div>
-                </section>
-            </div>
+                </Fragment>
+
+            )}
         </Fragment>
+
     )
 }
 
