@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from './Components/Layouts/Header'
 import Footer from './Components/Layouts/Footer'
 import Home from './Components/Home'
+import Login from './Components/User/Login'
 import ProductDetails from './Components/Product/ProductDetails.js'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} exact="true" />
           <Route path="/product/:id" element={<ProductDetails />} exact="true" />
           <Route path="/search/:keyword" element={<Home />} exact="true" />
+          <Route path="/login" element={<Login />} exact="true"/>
         </Routes>
         <Footer />
       </Router>
