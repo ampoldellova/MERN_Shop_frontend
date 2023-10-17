@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import MetaData from './Layouts/Metadata'
 import axios from 'axios';
 
@@ -13,9 +14,10 @@ const Home = () => {
     const [productsCount, setProductsCount] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
     const [resPerPage, setResPerPage] = useState(0)
+    let { keyword } = useParams();
 
-    const getProducts = async () => {
-        let link = `http://localhost:4001/api/v1/products`
+    const getProducts = async (currentPage=1, keywords='') => {
+        let link = `http://localhost:4001/api/v1/products?page=${currentPage}&keyword=${keyword}`
         console.log(link)
         let res = await axios.get(link)
         console.log(res)
@@ -31,8 +33,8 @@ const Home = () => {
     }
 
     useEffect(() => {
-        getProducts()
-    }, [])
+        getProducts(currentPage, keyword)
+    }, [currentPage, keyword])
     // console.log(products)
     return (
         <Fragment>
