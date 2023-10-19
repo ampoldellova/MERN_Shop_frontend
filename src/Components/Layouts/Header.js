@@ -6,31 +6,29 @@ import { getUser, logout } from '../../utils/helpers';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 const Header = () => {
 
     const [user, setUser] = useState('')
     const navigate = useNavigate()
     const logoutUser = async () => {
-
+        
         try {
             await axios.get(`http://localhost:4001/api/v1/logout`)
-
+            
             setUser('')
-            // toast.success('you logged out')
-            logout(() => navigate('/'))
+           
+            logout(()=> navigate('/'))
         } catch (error) {
             toast.error(error.response.data.message)
-        }
+            
+        } 
     }
-
     const logoutHandler = () => {
         logoutUser();
-        toast.success('you logged out', {
+        toast.success('log out', {
             position: toast.POSITION.BOTTOM_RIGHT
         });
     }
-
     useEffect(() => {
         setUser(getUser())
     }, [])
@@ -67,7 +65,8 @@ const Header = () => {
                             <Link className="dropdown-item" to="/me">Profile</Link>
 
                             <Link
-                                className="dropdown-item text-danger" to="/" onClick={logoutHandler}>
+                                className="dropdown-item text-danger" to="/" onClick={logoutHandler}
+                            >
                                 Logout
                             </Link>
                         </div>

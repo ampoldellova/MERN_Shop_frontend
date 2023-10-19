@@ -8,6 +8,8 @@ import Loader from './Layouts/Loader'
 import Pagination from 'react-js-pagination'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import Header from './Layouts/Header';
+
 
 const categories = [
     'Electronics',
@@ -39,8 +41,6 @@ const Home = () => {
     const Range = createSliderWithTooltip(Slider.Range);
 
     const getProducts = async (currentPage = 1, keyword = '', price, category = '') => {
-
-
         let link = `http://localhost:4001/api/v1/products?page=${currentPage}&keyword=${keyword}&price[lte]=${price[1]}&price[gte]=${price[0]}`
 
         if (category) {
@@ -65,6 +65,17 @@ const Home = () => {
         setCurrentPage(pageNumber)
     }
 
+    const loadUser = async () => {
+        try {
+            
+            const { data } = await axios.get('/api/v1/me')
+    
+        } catch (error) {
+            console.log( error.response.data.message)
+            
+        }
+    }
+
     useEffect(() => {
         getProducts(currentPage, keyword, price, category)
     }, [currentPage, keyword, price, category])
@@ -73,6 +84,7 @@ const Home = () => {
         <>
             {loading ? <Loader /> : (<Fragment>
                 <MetaData title={'Buy Best Products Online'} />
+                
                 <div className="container container-fluid">
 
                     <h1 id="products_heading">Latest Products</h1>
