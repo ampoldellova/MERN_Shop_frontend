@@ -18,7 +18,7 @@ const Register = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(true)
-   
+
 
     let navigate = useNavigate()
     useEffect(() => {
@@ -27,10 +27,10 @@ const Register = () => {
         }
         if (error) {
             console.log(error)
-           setError()
+            setError()
         }
 
-    }, [error. isAuthenticated, navigate])
+    }, [error.isAuthenticated, navigate])
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -166,7 +166,7 @@ const Register = () => {
                             id="register_button"
                             type="submit"
                             className="btn btn-block py-3"
-                            // disabled={loading ? false : true}
+                        // disabled={loading ? false : true}
                         >
                             REGISTER
                         </button>
