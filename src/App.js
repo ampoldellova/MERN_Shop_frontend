@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from './Components/Layouts/Header'
 import Footer from './Components/Layouts/Footer'
@@ -11,8 +11,18 @@ import UpdateProfile from './Components/User/UpdateProfile';
 import ForgotPassword from './Components/User/ForgotPassword';
 import NewPassword from './Components/User/NewPassword';
 import UpdatePassword from './Components/User/UpdatePassword';
+import axios from 'axios';
 
 function App() {
+  const [state, setState] = useState({
+    cartItems: localStorage.getItem('cartItems')
+      ? JSON.parse(localStorage.getItem('cartItems'))
+      : [],
+    shippingInfo: localStorage.getItem('shippingInfo')
+      ? JSON.parse(localStorage.getItem('shippingInfo'))
+      : {},
+  })
+
   return (
     <div className="App">
       <Router>
@@ -21,10 +31,10 @@ function App() {
           <Route path="/" element={<Home />} exact="true" />
           <Route path="/product/:id" element={<ProductDetails />} exact="true" />
           <Route path="/search/:keyword" element={<Home />} exact="true" />
-          <Route path="/login" element={<Login />} exact="true"/>
+          <Route path="/login" element={<Login />} exact="true" />
           <Route path="/register" element={<Register />} exact="true" />
           <Route path="/me" element={<Profile />} exact="true" />
-          <Route path="/me/update" element={<UpdateProfile />} exact="true"/>
+          <Route path="/me/update" element={<UpdateProfile />} exact="true" />
           <Route path="/password/forgot" element={<ForgotPassword />} exact="true" />
           <Route path="/password/reset/:token" element={<NewPassword />} exact="true" />
           <Route path="/password/update" element={<UpdatePassword />} />
