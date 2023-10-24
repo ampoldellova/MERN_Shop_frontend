@@ -10,7 +10,7 @@ import axios from 'axios'
 
 
 
-const ProductDetails = ({ match }) => {
+const ProductDetails = ({ addItemToCart, cartItems }) => {
 
     const [loading, setLoading] = useState(true)
     const [product, setProduct] = useState({})
@@ -45,6 +45,10 @@ const ProductDetails = ({ match }) => {
         setQuantity(qty)
     }
 
+    const addToCart = async () => {
+        await addItemToCart(id, quantity);
+    }
+
     useEffect(() => {
         productDetails(id)
 
@@ -53,6 +57,8 @@ const ProductDetails = ({ match }) => {
 
         // }
     }, [id,]);
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems))
 
     return (
         <Fragment>
@@ -85,11 +91,13 @@ const ProductDetails = ({ match }) => {
 
                             <p id="product_price">${product.price}</p>
                             <div className="stockCounter d-inline">
-                                <span className="btn btn-danger minus" onClick={decreaseQty}>-</span>
+                                <span className="btn btn-danger minus" onClick={decreaseQty} >-</span>
+
                                 <input type="number" className="form-control count d-inline" value={quantity} readOnly />
-                                <span className="btn btn-primary plus" onClick={increaseQty}> +</span>
+                                {/* <span className="btn btn-primary plus"> +</span> */}
+                                <span className="btn btn-primary plus" onClick={increaseQty}>+</span>
                             </div>
-                            <button type="button" id="cart_btn" className="btn btn-primary d-inline ml-4"  >Add to Cart</button>
+                            <button type="button" id="cart_btn" className="btn btn-primary d-inline ml-4" disabled={product.stock === 0} onClick={addToCart}>Add to Cart</button>
 
                             <hr />
 
