@@ -6,17 +6,18 @@ import Metadata from '../Layouts/Metadata'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import {authenticate} from '../../utils/helpers'
+import { authenticate } from '../../utils/helpers'
+import { getUser } from '../../utils/helpers';
 
 const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false)
-    
+
     const navigate = useNavigate()
     let location = useLocation();
-    // const redirect = location.search ? new URLSearchParams(location.search).get('redirect') : ''
+    const redirect = location.search ? new URLSearchParams(location.search).get('redirect') : ''
     const notify = (error) => toast.error(error, {
         position: toast.POSITION.BOTTOM_RIGHT
     });
@@ -31,7 +32,7 @@ const Login = () => {
             const { data } = await axios.post(`http://localhost:4001/api/v1/login`, { email, password }, config)
             console.log(data)
             authenticate(data, () => navigate("/"))
-            
+
         } catch (error) {
             toast.error("invalid user or password", {
                 position: toast.POSITION.BOTTOM_RIGHT
@@ -43,6 +44,12 @@ const Login = () => {
         login(email, password)
     }
 
+    useEffect(() => {
+        if (getUser() && redirect === 'shipping') {
+            navigate(`/${redirect}`)
+        }
+    }, [])
+
     return (
         <Fragment>
             {loading ? <Loader /> : (
@@ -51,8 +58,8 @@ const Login = () => {
 
                     <div className="row wrapper">
                         <div className="col-10 col-lg-5">
-                            <form className="shadow-lg" 
-                            onSubmit={submitHandler}
+                            <form className="shadow-lg"
+                                onSubmit={submitHandler}
                             >
                                 <h1 className="mb-3">Login</h1>
                                 <div className="form-group">

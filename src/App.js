@@ -11,6 +11,7 @@ import UpdateProfile from './Components/User/UpdateProfile';
 import ForgotPassword from './Components/User/ForgotPassword';
 import NewPassword from './Components/User/NewPassword';
 import UpdatePassword from './Components/User/UpdatePassword';
+import Cart from './Components/Cart/Cart';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
@@ -68,21 +69,33 @@ function App() {
     }
   }
 
+  const removeItemFromCart = async (id) => {
+    setState({
+      ...state,
+      cartItems: state.cartItems.filter(i => i.product !== id)
+    })
+    localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
+  }
+
   return (
     <div className="App">
       <Router>
-        <Header />
+        <Header cartItems={state.cartItems} />
         <Routes>
           <Route path="/" element={<Home />} exact="true" />
           <Route path="/product/:id" element={<ProductDetails cartItems={state.cartItems} addItemToCart={addItemToCart} />} exact="true" />
           <Route path="/search/:keyword" element={<Home />} exact="true" />
+
           <Route path="/login" element={<Login />} exact="true" />
           <Route path="/register" element={<Register />} exact="true" />
           <Route path="/me" element={<Profile />} exact="true" />
-          <Route path="/me/update" element={<UpdateProfile />} exact="true" />
+          <Route path="/me/update" element={<UpdateProfile />} exact="true"
+          />
           <Route path="/password/forgot" element={<ForgotPassword />} exact="true" />
           <Route path="/password/reset/:token" element={<NewPassword />} exact="true" />
           <Route path="/password/update" element={<UpdatePassword />} />
+
+          <Route path="/cart" element={<Cart cartItems={state.cartItems} addItemToCart={addItemToCart} removeItemFromCart={removeItemFromCart} />} exact="true" />
         </Routes>
         <Footer />
       </Router>
