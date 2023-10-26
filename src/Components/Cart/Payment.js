@@ -32,14 +32,14 @@ const Payment = ({ cartItems, shippingInfo }) => {
                     'Authorization': `Bearer ${getToken()}`
                 }
             }
-            const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/order/new`, order, config)
+            const { data } = await axios.post(`http://localhost:4001/api/v1/order/new`, order, config)
             // setIsUpdated(data.success)
             setLoading(false)
             toast.success('order created', {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
 
-            sessionStorage.removeItem('orderInfo')
+
             navigate('/success')
 
         } catch (error) {
