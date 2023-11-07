@@ -24,6 +24,7 @@ import OrderDetails from './Components/Order/OrderDetails';
 import Dashboard from './Components/Admin/Dashboard';
 import NewProduct from './Components/Admin/NewProduct';
 import ProductsList from './Components/Admin/ProductList';
+import UpdateProduct from './Components/Admin/UpdateProduct';
 
 function App() {
   const [state, setState] = useState({
@@ -120,8 +121,11 @@ function App() {
           <Route path="/orders/me" element={<ListOrders />} />
           <Route path="/order/:id" element={<OrderDetails />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/admin/product" element={<NewProduct  />}  />
-          <Route path="/admin/products" element={<ProductsList />}  />
+          <Route path="/admin/product" element={<NewProduct />} />
+          <Route path="/admin/products" element={<ProductsList />} />
+          <Route
+            path="/admin/product/:id"
+            element={<UpdateProduct />} />
         </Routes>
         <Footer />
       </Router>
