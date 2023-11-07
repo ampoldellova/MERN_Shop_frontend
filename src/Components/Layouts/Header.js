@@ -54,8 +54,8 @@ const Header = ({ cartItems }) => {
                         <Link to="#!" className="btn dropdown-toggle text-white mr-4" type="button" id="dropDownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <figure className="avatar avatar-nav">
                                 <img
-                                    src={user.avatar && user.avatar.url}
-                                    alt={user && user.name}
+                                    src={user.avatar.url}
+                                    // alt={user.name}
                                     className="rounded-circle"
                                 />
                             </figure>
