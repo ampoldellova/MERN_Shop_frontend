@@ -28,6 +28,7 @@ import UpdateProduct from './Components/Admin/UpdateProduct';
 import OrdersList from './Components/Admin/OrderList';
 import ProcessOrder from './Components/Admin/ProcessOrder';
 import UsersList from './Components/Admin/UsersList';
+import UpdateUser from './Components/Admin/UpdateUser';
 
 function App() {
   const [state, setState] = useState({
@@ -138,6 +139,8 @@ function App() {
           <Route
             path="/admin/users"
             element={<UsersList />} />
+          <Route path="/admin/user/:id" element={<UpdateUser />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         <Footer />
       </Router>
