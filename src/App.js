@@ -29,6 +29,7 @@ import OrdersList from './Components/Admin/OrderList';
 import ProcessOrder from './Components/Admin/ProcessOrder';
 import UsersList from './Components/Admin/UsersList';
 import UpdateUser from './Components/Admin/UpdateUser';
+import ProtectedRoute from './Components/Route/ProtectedRoute';
 
 function App() {
   const [state, setState] = useState({
@@ -124,7 +125,7 @@ function App() {
           <Route path="/success" element={<OrderSuccess />} />
           <Route path="/orders/me" element={<ListOrders />} />
           <Route path="/order/:id" element={<OrderDetails />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/admin/product" element={<NewProduct />} />
           <Route path="/admin/products" element={<ProductsList />} />
           <Route
@@ -140,7 +141,23 @@ function App() {
             path="/admin/users"
             element={<UsersList />} />
           <Route path="/admin/user/:id" element={<UpdateUser />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/products"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <ProductsList />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
       </Router>
