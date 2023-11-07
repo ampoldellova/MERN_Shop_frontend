@@ -27,6 +27,7 @@ import ProductsList from './Components/Admin/ProductList';
 import UpdateProduct from './Components/Admin/UpdateProduct';
 import OrdersList from './Components/Admin/OrderList';
 import ProcessOrder from './Components/Admin/ProcessOrder';
+import UsersList from './Components/Admin/UsersList';
 
 function App() {
   const [state, setState] = useState({
@@ -134,6 +135,9 @@ function App() {
           <Route
             path="/admin/order/:id"
             element={<ProcessOrder />} />
+          <Route
+            path="/admin/users"
+            element={<UsersList />} />
         </Routes>
         <Footer />
       </Router>
