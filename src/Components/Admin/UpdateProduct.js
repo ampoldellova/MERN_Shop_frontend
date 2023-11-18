@@ -121,19 +121,21 @@ const UpdateProduct = () => {
     }
     const onChange = e => {
         const files = Array.from(e.target.files)
-        setImagesPreview([]);
-        setImages([])
-        setOldImages([])
+        // setImagesPreview([]);
+        // setImages([])
+        // setOldImages([])
+        let img = []
         files.forEach(file => {
             const reader = new FileReader();
             reader.onload = () => {
                 if (reader.readyState === 2) {
                     setImagesPreview(oldArray => [...oldArray, reader.result])
-                    setImages(oldArray => [...oldArray, reader.result])
+                    img.push(reader.result)
                 }
             }
             reader.readAsDataURL(file)
         })
+        setImages(img)
     }
     return (
         <Fragment>
