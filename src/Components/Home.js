@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { useParams } from "react-router-dom"
-import MetaData from './Layouts/Metadata'
+import Metadata from './Layouts/Metadata'
 import axios from 'axios';
 
 import Product from './Product/Product';
@@ -83,7 +83,7 @@ const Home = () => {
     return (
         <>
             {loading ? <Loader /> : (<Fragment>
-                <MetaData title={'Buy Best Products Online'} />
+                <Metadata title={'Buy Best Products Online'} />
                 
                 <div className="container container-fluid">
 
