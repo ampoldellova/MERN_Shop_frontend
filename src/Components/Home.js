@@ -29,14 +29,14 @@ const categories = [
 ]
 const Home = () => {
     const dispatch = useDispatch();
-    const { loading, products, error, productsCount } = useSelector(state => state.products);
+    const { loading, products, error, productsCount, resPerPage, filteredProductsCount } = useSelector(state => state.products);
     // const [loading, setLoading] = useState(true)
     // const [products, setProducts] = useState([])
     // const [error, setError] = useState()
     // const [productsCount, setProductsCount] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
-    const [resPerPage, setResPerPage] = useState(0)
-    const [filteredProductsCount, setFilteredProductsCount] = useState(0)
+    // const [resPerPage, setResPerPage] = useState(0)
+    // const [filteredProductsCount, setFilteredProductsCount] = useState(0)
     const [price, setPrice] = useState([1, 1000]);
     const [category, setCategory] = useState('');
     let { keyword } = useParams();

@@ -5,17 +5,23 @@ import {
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
+    ADMIN_PRODUCTS_REQUEST,
+    ADMIN_PRODUCTS_FAIL,
+    ADMIN_PRODUCTS_SUCCESS,
     CLEAR_ERRORS
 } from '../constants/productConstants'
 export const productsReducer = (state = { products: [] }, action) => {
     switch (action.type) {
         case ALL_PRODUCTS_REQUEST:
+        case ADMIN_PRODUCTS_REQUEST:
             return {
+                ...state,
                 loading: true,
                 products: []
             }
         case ALL_PRODUCTS_SUCCESS:
             return {
+                ...state,
                 loading: false,
                 products: action.payload.products,
                 productsCount: action.payload.productsCount,
@@ -23,9 +29,18 @@ export const productsReducer = (state = { products: [] }, action) => {
                 filteredProductsCount: action.payload.filteredProductsCount
             }
         case ALL_PRODUCTS_FAIL:
+        case ADMIN_PRODUCTS_FAIL:
             return {
+                ...state,
                 loading: false,
                 error: action.payload
+            }
+
+        case ADMIN_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                products: action.payload
             }
         case CLEAR_ERRORS:
             return {
