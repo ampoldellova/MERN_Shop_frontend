@@ -2,44 +2,54 @@ import React, { Fragment, useEffect, useState } from 'react'
 import '../../App.css'
 import Search from './Search'
 import { Link, useNavigate } from 'react-router-dom'
-import { getUser, logout } from '../../utils/helpers';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+// import { getUser, logout } from '../../utils/helpers';
+
+
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux'
+
+import { logout } from '../../actions/userActions'
 const Header = ({ cartItems }) => {
 
-    const [user, setUser] = useState('')
+    // const [user, setUser] = useState('')
     const navigate = useNavigate()
-    const logoutUser = async () => {
+    const dispatch = useDispatch();
+    const { user, loading } = useSelector(state => state.auth)
+    // const logoutUser = async () => {
 
-        try {
-            await axios.get(`http://localhost:4001/api/v1/logout`)
+    //     try {
+    //         await axios.get(`${process.env.REACT_APP_API}/api/v1/logout`)
 
-            setUser('')
+    //         setUser('')
 
-            logout(() => navigate('/'))
-        } catch (error) {
-            toast.error(error.response.data.message)
+    //         logout(() => navigate('/'))
+    //     } catch (error) {
+    //         toast.error(error.response.data.message)
 
-        }
-    }
+    //     }
+    // }
+    // const logoutHandler = () => {
+    //     // logoutUser();
+    //     toast.success('log out', {
+    //         position: toast.POSITION.BOTTOM_RIGHT
+    //     });
+    // }
     const logoutHandler = () => {
-        logoutUser();
-        toast.success('log out', {
-            position: toast.POSITION.BOTTOM_RIGHT
-        });
+        dispatch(logout());
     }
-    useEffect(() => {
-        setUser(getUser())
-    }, [])
+    // useEffect(() => {
+    //     // setUser(getUser())
+    // }, [])
     return (
         <Fragment>
             <nav className="navbar row">
-                <div className="col-12 col-md-3">
-                    <div className="navbar-brand">
-                        <Link to="/"><img src="./images/shopit_logo.png" /></Link>
+                <Link to="/" style={{ textDecoration: 'none' }} >
+                    <div className="col-12 col-md-3">
+                        <div className="navbar-brand">
+                            <img src="./images/shopit_logo.png" />
+                        </div>
                     </div>
-                </div>
+                </Link>
                 <div className="col-12 col-md-6 mt-2 mt-md-0">
                     <Search />
                 </div>
@@ -54,8 +64,8 @@ const Header = ({ cartItems }) => {
                         <Link to="#!" className="btn dropdown-toggle text-white mr-4" type="button" id="dropDownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <figure className="avatar avatar-nav">
                                 <img
-                                    src={user.avatar.url}
-                                    // alt={user.name}
+                                    src={user.avatar && user.avatar.url}
+                                    alt={user && user.name}
                                     className="rounded-circle"
                                 />
                             </figure>
