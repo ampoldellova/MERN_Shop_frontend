@@ -14,6 +14,8 @@ import {
     forgotPasswordReducer
 } from './reducers/userReducers'
 
+import { cartReducer } from './reducers/cartReducers';
+
 
 const reducer = combineReducers({
     products: productsReducer,
@@ -23,11 +25,21 @@ const reducer = combineReducers({
     auth: authReducer,
     user: userReducer,
     forgotPassword: forgotPasswordReducer,
+    cart: cartReducer,
 
 })
 
 let initialState = {
-
+    cart: {
+        cartItems: localStorage.getItem('cartItems')
+            ? JSON.parse(localStorage.getItem('cartItems'))
+            : [],
+        shippingInfo: localStorage.getItem('shippingInfo')
+            ? JSON.parse(localStorage.getItem('shippingInfo'))
+            : {}
+    },
+    user: {},
+    auth: {},
 }
 
 const middlware = [thunk]

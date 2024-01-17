@@ -18,9 +18,10 @@ import {
     UPDATE_PRODUCT_REQUEST,
     UPDATE_PRODUCT_SUCCESS,
     UPDATE_PRODUCT_FAIL,
+
     CLEAR_ERRORS
 } from '../constants/productConstants';
-import { getToken } from '../utils/helpers';
+import { getToken, } from '../utils/helpers'
 export const getProducts = (currentPage = 1, keyword = '', price, category = '') => async (dispatch) => {
     try {
         dispatch({
@@ -70,12 +71,10 @@ export const getProductDetails = (id) => async (dispatch) => {
 export const getAdminProducts = () => async (dispatch) => {
     try {
         dispatch({ type: ADMIN_PRODUCTS_REQUEST })
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${getToken()}`
-            }
-        }
-        const { data } = await axios.get(`http://localhost:4001/api/v1/admin/products`, config)
+        const { data } = await axios.get(`http://localhost:4001/api/v1/admin/products`, {
+            //AxiosRequestConfig parameter
+            withCredentials: true //correct
+        })
         dispatch({
             type: ADMIN_PRODUCTS_SUCCESS,
             payload: data.products
@@ -87,7 +86,6 @@ export const getAdminProducts = () => async (dispatch) => {
         })
     }
 }
-
 
 export const newProduct = (productData) => async (dispatch) => {
     try {
