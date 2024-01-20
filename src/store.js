@@ -40,6 +40,7 @@ let initialState = {
     },
     user: {},
     auth: {},
+
 }
 
 const middlware = [thunk]
