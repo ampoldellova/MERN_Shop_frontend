@@ -3,8 +3,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import MetaData from '../Layouts/Metadata'
 import CheckoutSteps from './CheckoutSteps'
 import { getUser } from '../../utils/helpers'
-const ConfirmOrder = ({ cartItems, shippingInfo }) => {
-    const [user, setUser] = useState(getUser() ? getUser() : {})
+import { useSelector } from 'react-redux'
+
+const ConfirmOrder = () => {
+    // const [user, setUser] = useState(getUser() ? getUser() : {})
+    const { cartItems, shippingInfo } = useSelector(state => state.cart)
+    const { user } = useSelector(state => state.auth)   
     let navigate = useNavigate();
     // Calculate Order Prices
     const itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
